@@ -3,85 +3,100 @@ Dashboard untuk KopiDate — PT KopiXYZ Indonesia
 
 Menjalankan: streamlit run dashboard.py
 Buka: http://localhost:8501
-
-Menampilkan:
-  - KPI cards (total revenue, orders, avg ticket, outlets)
-  - Revenue per outlet
-  - Top 5 menu
-  - Payment mix
-  - Daily revenue trend (time series)
-  - Cleansing report
 """
 
 import streamlit as st
 import duckdb
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 from pathlib import Path
 
 DB_PATH = Path(__file__).parent / "pipeline" / "KopiDate.duckdb"
+
+# ── Palette ────────────────────────────────────────────────────────────────────
+BROWN_DARK  = "#3D2314"
+BROWN_MED   = "#6F4E37"
+BROWN_LIGHT = "#A0724A"
+CREAM       = "#F5F0EB"
+CREAM_DARK  = "#E8DFD5"
+ORANGE_ACC  = "#D4852F"
+WHITE       = "#FFFFFF"
 
 
 def load_data():
     con = duckdb.connect(str(DB_PATH), read_only=True)
     orders = con.execute("SELECT * FROM orders").fetchdf()
-    menu = con.execute("SELECT * FROM menu").fetchdf()
+    menu   = con.execute("SELECT * FROM menu").fetchdf()
     con.close()
     return orders, menu
 
 
-def kpi_cards(orders: pd.DataFrame):
-    total_revenue = int(orders["revenue_idr"].sum())
-    total_orders = len(orders)
-    avg_ticket = int(orders["revenue_idr"].mean())
-    n_outlets = orders["outlet"].nunique()
-    n_menu = orders["menu_item"].nunique()
-    n_days = orders["order_date"].nunique()
-
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Revenue", f"Rp {total_revenue:,}".replace(",", "."))
-    col2.metric("Total Orders", f"{total_orders:,}".replace(",", "."))
-    col3.metric("Avg Ticket", f"Rp {avg_ticket:,}".replace(",", "."))
-    col4.metric("Outlets", n_outlets)
-
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Menu Items Sold", n_menu)
-    col2.metric("Days Active", n_days)
-    col3.metric("Peak Revenue", f"Rp {int(orders.groupby('order_date')['revenue_idr'].sum().max()):,}".replace(",", "."))
-    col4.metric("Top Payment", orders["payment_method"].mode()[0])
+def fmt_rp(n):
+    return f"Rp {int(n):,}".replace(",", ".")
 
 
-def revenue_by_outlet(orders: pd.DataFrame):
+# ── KPI Cards ─────────────────────────────────────────────────────────────────
+def kpi_cards(orders):
+    rev     = int(orders["revenue_idr"].sum())
+    n_order = len(orders)
+    avg_t    = int(orders["revenue_idr"].mean())
+    n_outlet = orders["outlet"].nunique()
+    n_days   = orders["order_date"].nunique()
+    peak_rev = int(orders.groupby("order_date")["revenue_idr"].sum().max())
+    top_pay  = orders["payment_method"].mode()[0]
+
+    row1 = st.columns([1, 1, 1, 1])
+    with row1[0]: st.metric("Total Revenue", fmt_rp(rev))
+    with row1[1]: st.metric("Total Orders", f"{n_order:,}".replace(",", "."))
+    with row1[2]: st.metric("Avg Ticket", fmt_rp(avg_t))
+    with row1[3]: st.metric("Outlets", n_outlet)
+
+    row2 = st.columns([1, 1, 1, 1])
+    with row2[0]: st.metric("Days Active", n_days)
+    with row2[1]: st.metric("Peak Daily Rev", fmt_rp(peak_rev))
+    with row2[2]: st.metric("Top Payment", top_pay)
+    with row2[3]: st.metric("Avg Cup Price", fmt_rp(int(orders["price_idr"].mean())))
+
+
+# ── Revenue by Outlet ──────────────────────────────────────────────────────────
+def revenue_by_outlet(orders):
     rev = (
         orders.groupby("outlet")
         .agg(revenue=("revenue_idr", "sum"), orders=("order_id", "count"))
         .reset_index()
         .sort_values("revenue", ascending=False)
     )
-    rev["revenue_fmt"] = rev["revenue"].apply(lambda x: f"Rp {x:,}".replace(",", "."))
-    rev["avg_ticket"] = (rev["revenue"] / rev["orders"]).apply(lambda x: f"Rp {int(x):,}".replace(",", "."))
+    rev["avg_ticket"] = rev["revenue"] / rev["orders"]
+    colors = [BROWN_DARK, BROWN_MED, BROWN_LIGHT]
 
     fig = px.bar(
-        rev,
-        x="outlet",
-        y="revenue",
-        text="revenue_fmt",
+        rev, x="outlet", y="revenue",
+        text=[fmt_rp(r) for r in rev["revenue"]],
         color="outlet",
-        title="Revenue per Outlet",
-        labels={"revenue": "Revenue (Rp)", "outlet": "Outlet"},
-        color_discrete_sequence=["#6f4e37", "#8B5E3C", "#A0724A"],
+        color_discrete_map=dict(zip(rev["outlet"], colors * 3)),
     )
-    fig.update_layout(showlegend=False, title_x=0)
-    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        title={"text": "Revenue per Outlet", "font": {"size": 18, "color": BROWN_DARK}},
+        showlegend=False,
+        plot_bgcolor=WHITE,
+        paper_bgcolor=WHITE,
+        xaxis=dict(title="", tickfont={"color": BROWN_MED}),
+        yaxis=dict(title="Revenue (Rp)", tickprefix="Rp ", gridcolor=CREAM_DARK),
+        margin=dict(l=20, r=20, t=50, b=20),
+    )
+    fig.update_traces(textposition="outside", textfont={"color": BROWN_DARK, "size": 13})
     st.plotly_chart(fig, use_container_width=True)
 
-    st.dataframe(rev[["outlet", "orders", "revenue_fmt", "avg_ticket"]].rename(columns={
-        "outlet": "Outlet", "orders": "Orders", "revenue_fmt": "Revenue", "avg_ticket": "Avg Ticket"
-    }), hide_index=True)
+    det = rev.copy()
+    det["revenue_fmt"]    = det["revenue"].apply(fmt_rp)
+    det["avg_ticket_fmt"] = det["avg_ticket"].apply(fmt_rp)
+    det = det[["outlet", "orders", "revenue_fmt", "avg_ticket_fmt"]]
+    det.columns = ["Outlet", "Orders", "Revenue", "Avg Ticket"]
+    st.dataframe(det, hide_index=True, use_container_width=True)
 
 
-def top_menu(orders: pd.DataFrame):
+# ── Top Menu ───────────────────────────────────────────────────────────────────
+def top_menu(orders):
     top = (
         orders.groupby("menu_item")
         .agg(revenue=("revenue_idr", "sum"), cups=("qty", "sum"))
@@ -89,24 +104,29 @@ def top_menu(orders: pd.DataFrame):
         .sort_values("revenue", ascending=False)
         .head(5)
     )
-    top["revenue_fmt"] = top["revenue"].apply(lambda x: f"Rp {x:,}".replace(",", "."))
 
     fig = px.bar(
-        top,
-        x="menu_item",
-        y="revenue",
-        text="revenue_fmt",
-        color="menu_item",
-        title="Top 5 Menu by Revenue",
-        labels={"revenue": "Revenue (Rp)", "menu_item": "Menu"},
-        color_discrete_sequence=px.colors.sequential.Brown[2:],
+        top, x="menu_item", y="revenue",
+        text=[fmt_rp(r) for r in top["revenue"]],
+        color="revenue",
+        color_continuous_scale="Oranges",
     )
-    fig.update_layout(showlegend=False, title_x=0)
-    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        title={"text": "Top 5 Menu by Revenue", "font": {"size": 18, "color": BROWN_DARK}},
+        showlegend=False,
+        plot_bgcolor=WHITE,
+        paper_bgcolor=WHITE,
+        xaxis=dict(title="", tickfont={"color": BROWN_MED, "size": 11}),
+        yaxis=dict(title="Revenue (Rp)", tickprefix="Rp ", gridcolor=CREAM_DARK),
+        margin=dict(l=20, r=20, t=50, b=20),
+        coloraxis_showscale=False,
+    )
+    fig.update_traces(textposition="outside", textfont={"color": BROWN_DARK, "size": 13})
     st.plotly_chart(fig, use_container_width=True)
 
 
-def payment_mix(orders: pd.DataFrame):
+# ── Payment Mix ────────────────────────────────────────────────────────────────
+def payment_mix(orders):
     mix = (
         orders.groupby("payment_method")
         .agg(n=("order_id", "count"), revenue=("revenue_idr", "sum"))
@@ -114,133 +134,204 @@ def payment_mix(orders: pd.DataFrame):
         .sort_values("n", ascending=False)
     )
     mix["pct"] = (mix["n"] / mix["n"].sum() * 100).round(1)
-
-    col_chart, col_table = st.columns([2, 1])
+    palette = [BROWN_DARK, BROWN_MED, "#7A5A3A", BROWN_LIGHT, "#C4956A", ORANGE_ACC, "#E8B87A"]
 
     fig = px.pie(
-        mix,
-        names="payment_method",
-        values="n",
-        hole=0.4,
-        title="Payment Method Mix",
-        color_discrete_sequence=px.colors.sequential.Brown_r,
+        mix, names="payment_method", values="n",
+        hole=0.5,
+        color="payment_method",
+        color_discrete_map=dict(zip(mix["payment_method"], palette[:len(mix)])),
     )
-    fig.update_layout(title_x=0, showlegend=True)
-    col_chart.plotly_chart(fig, use_container_width=True)
-
-    mix["revenue_fmt"] = mix["revenue"].apply(lambda x: f"Rp {x:,}".replace(",", "."))
-    col_table.dataframe(
-        mix[["payment_method", "n", "pct", "revenue_fmt"]].rename(columns={
-            "payment_method": "Payment", "n": "Orders", "pct": "%", "revenue_fmt": "Revenue"
-        }),
-        hide_index=True
+    fig.update_layout(
+        title={"text": "Payment Method Mix", "font": {"size": 18, "color": BROWN_DARK}},
+        plot_bgcolor=WHITE,
+        paper_bgcolor=WHITE,
+        margin=dict(l=20, r=20, t=50, b=20),
+        showlegend=True,
+        legend=dict(font={"color": BROWN_MED}),
     )
+    fig.update_traces(
+        textposition="outside",
+        textfont={"color": BROWN_DARK, "size": 12},
+        textinfo="percent+label",
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+    tbl = mix.copy()
+    tbl["revenue_fmt"] = tbl["revenue"].apply(fmt_rp)
+    tbl = tbl[["payment_method", "n", "pct", "revenue_fmt"]]
+    tbl.columns = ["Payment", "Orders", "%", "Revenue"]
+    st.dataframe(tbl, hide_index=True, use_container_width=True)
 
 
-def daily_trend(orders: pd.DataFrame):
+# ── Daily Trend ────────────────────────────────────────────────────────────────
+def daily_trend(orders):
     daily = (
         orders.groupby(["order_date", "outlet"])
         .agg(revenue=("revenue_idr", "sum"), orders=("order_id", "count"))
         .reset_index()
         .sort_values("order_date")
     )
+    colors = {"Dago": BROWN_DARK, "Setiabudi": BROWN_MED, "Buah Batu": BROWN_LIGHT}
 
     fig = px.line(
-        daily,
-        x="order_date",
-        y="revenue",
+        daily, x="order_date", y="revenue",
         color="outlet",
+        color_discrete_map=colors,
         markers=True,
-        title="Daily Revenue Trend by Outlet",
-        labels={"order_date": "Date", "revenue": "Revenue (Rp)", "outlet": "Outlet"},
-        color_discrete_sequence=["#6f4e37", "#8B5E3C", "#A0724A"],
     )
-    fig.update_layout(title_x=0)
+    fig.update_layout(
+        title={"text": "Daily Revenue Trend by Outlet", "font": {"size": 18, "color": BROWN_DARK}},
+        plot_bgcolor=WHITE,
+        paper_bgcolor=WHITE,
+        xaxis=dict(gridcolor=CREAM_DARK, tickfont={"color": BROWN_MED}),
+        yaxis=dict(tickprefix="Rp ", gridcolor=CREAM_DARK, tickfont={"color": BROWN_MED}),
+        legend=dict(font={"color": BROWN_MED}),
+        margin=dict(l=20, r=20, t=50, b=20),
+    )
+    fig.update_traces(line={"width": 2.5}, marker={"size": 7})
     st.plotly_chart(fig, use_container_width=True)
 
 
-def shift_performance(orders: pd.DataFrame):
+# ── Shift Performance ─────────────────────────────────────────────────────────
+def shift_performance(orders):
     shift = (
         orders[orders["shift"].notna()]
         .groupby(["outlet", "shift"])
         .agg(revenue=("revenue_idr", "sum"), orders=("order_id", "count"))
         .reset_index()
     )
-    shift["avg_ticket"] = (shift["revenue"] / shift["orders"]).round(0)
+    shift["avg_ticket"] = shift["revenue"] / shift["orders"]
 
     fig = px.bar(
-        shift,
-        x="outlet",
-        y="revenue",
+        shift, x="outlet", y="revenue",
         color="shift",
         barmode="group",
-        title="Revenue by Outlet & Shift",
-        labels={"outlet": "Outlet", "revenue": "Revenue (Rp)", "shift": "Shift"},
-        color_discrete_sequence=["#c8a97e", "#8B5E3C", "#4a3728"],
+        color_discrete_map={"Pagi": CREAM, "Siang": BROWN_LIGHT, "Malam": BROWN_DARK},
+        text=[fmt_rp(r) for r in shift["revenue"]],
     )
-    fig.update_layout(title_x=0)
+    fig.update_layout(
+        title={"text": "Revenue by Outlet & Shift", "font": {"size": 18, "color": BROWN_DARK}},
+        plot_bgcolor=WHITE,
+        paper_bgcolor=WHITE,
+        xaxis=dict(title="", tickfont={"color": BROWN_MED}),
+        yaxis=dict(tickprefix="Rp ", gridcolor=CREAM_DARK, tickfont={"color": BROWN_MED}),
+        legend=dict(font={"color": BROWN_MED}),
+        margin=dict(l=20, r=20, t=50, b=20),
+    )
+    fig.update_traces(textposition="outside", textfont={"color": BROWN_DARK, "size": 10})
     st.plotly_chart(fig, use_container_width=True)
 
 
-def category_performance(orders: pd.DataFrame, menu: pd.DataFrame):
+# ── Category Performance ───────────────────────────────────────────────────────
+def category_performance(orders, menu):
     cat = (
         orders.groupby("menu_item")["revenue_idr"]
-        .sum()
-        .reset_index()
+        .sum().reset_index()
         .merge(menu[["menu_item", "category"]], on="menu_item")
         .groupby("category")
         .agg(revenue=("revenue_idr", "sum"), items=("menu_item", "count"))
         .reset_index()
         .sort_values("revenue", ascending=False)
     )
-    cat["revenue_fmt"] = cat["revenue"].apply(lambda x: f"Rp {x:,}".replace(",", "."))
 
     fig = px.bar(
-        cat,
-        x="category",
-        y="revenue",
-        text="revenue_fmt",
+        cat, x="category", y="revenue",
         color="category",
-        title="Revenue by Category",
-        labels={"category": "Category", "revenue": "Revenue (Rp)"},
-        color_discrete_sequence=px.colors.sequential.Brown,
+        color_discrete_sequence=["#6F4E37","#8B6240","#A0724A","#C4956A","#D4852F","#E8B87A"],
+        text=[fmt_rp(r) for r in cat["revenue"]],
     )
-    fig.update_layout(showlegend=False, title_x=0)
-    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        title={"text": "Revenue by Category", "font": {"size": 18, "color": BROWN_DARK}},
+        showlegend=False,
+        plot_bgcolor=WHITE,
+        paper_bgcolor=WHITE,
+        xaxis=dict(title="", tickfont={"color": BROWN_MED}),
+        yaxis=dict(tickprefix="Rp ", gridcolor=CREAM_DARK, tickfont={"color": BROWN_MED}),
+        margin=dict(l=20, r=20, t=50, b=20),
+    )
+    fig.update_traces(textposition="outside", textfont={"color": BROWN_DARK, "size": 12})
     st.plotly_chart(fig, use_container_width=True)
 
 
+# ── Cleansing Report ───────────────────────────────────────────────────────────
 def cleansing_info():
+    st.markdown("### Pipeline Cleansing Report")
+    st.caption("3 sumber data · 10 langkah cleansing · DuckDB warehouse")
+
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown("**Rows**")
+        st.markdown(f"- Input: `464`")
+        st.markdown(f"- Output: `364`")
+        st.markdown(f"- Dropped: `100`")
+    with c2:
+        st.markdown("**Quality**")
+        st.markdown(f"- Unknown outlet: `0`")
+        st.markdown(f"- Unknown size: `0`")
+        st.markdown(f"- Price repaired: `9`")
+
     st.markdown("---")
-    st.subheader("Pipeline Cleansing Report")
-    st.caption("Data source: pipeline/KopiDate.duckdb — 3 sources, 10-step cleansing")
-    st.markdown("""
-| Metric | Value |
-|--------|-------|
-| Input rows | 464 |
-| Output rows | 364 |
-| Dropped (unknown payment) | 10 |
-| Dropped (invalid qty) | 6 |
-| Dropped (duplicate) | 84 |
-| Price recomputed | 9 |
-| Unknown outlet | 0 |
-| Unknown size | 0 |
-| Unknown menu | 0 |
-    """.strip())
+    st.markdown("### Cleansing Breakdown")
+    rows = [
+        ("Drop: Unknown Payment", "10"),
+        ("Drop: Invalid Qty", "6"),
+        ("Drop: Duplicate", "84"),
+        ("Drop: Unknown Size", "0"),
+        ("Drop: Unknown Menu", "0"),
+        ("Price Recomputed", "9"),
+    ]
+    for label, val in rows:
+        st.markdown(f"- **{label}:** `{val}`")
 
 
+# ── Main ───────────────────────────────────────────────────────────────────────
 def main():
     st.set_page_config(
-        page_title="KopiXYZ — Daily Dashboard",
+        page_title="KopiDate — Operations Dashboard",
         page_icon="☕",
         layout="wide",
+        initial_sidebar_state="collapsed",
     )
 
-    st.title("KopiXYZ Indonesia — Daily Operations Dashboard")
-    st.caption(f"Warehouse: KopiDate.duckdb · {DB_PATH}")
+    # Custom CSS
+    st.markdown(f"""
+    <style>
+    .stApp {{ background-color: {CREAM}; }}
+    [data-testid="stMetric"] {{
+        background-color: {WHITE};
+        border: 1px solid {CREAM_DARK};
+        border-radius: 10px;
+        padding: 14px 10px;
+    }}
+    [data-testid="stMetricLabel"] {{ color: {BROWN_MED}; font-size: 0.78rem; }}
+    [data-testid="stMetricValue"] {{ color: {BROWN_DARK}; font-size: 1.4rem; font-weight: 700; }}
+    h2 {{ color: {BROWN_DARK} !important; font-weight: 700 !important; }}
+    hr {{ border-color: {CREAM_DARK}; }}
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Header bar
+    st.markdown(f"""
+    <div style="
+        background: linear-gradient(135deg, {BROWN_DARK} 0%, {BROWN_MED} 100%);
+        color: {WHITE};
+        padding: 24px 32px;
+        border-radius: 0 0 16px 16px;
+        margin-bottom: 28px;
+        box-shadow: 0 4px 12px rgba(61,35,20,0.15);
+    ">
+        <h1 style="margin:0; font-size:1.9rem; font-weight:800; letter-spacing:-0.5px;">
+            ☕ KopiDate — Daily Operations Dashboard
+        </h1>
+        <p style="margin:6px 0 0; color:#C4956A; font-size:0.88rem;">
+            PT KopiXYZ Indonesia &nbsp;·&nbsp; Jan–Feb 2024 &nbsp;·&nbsp; 3 Outlets
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     if not DB_PATH.exists():
-        st.error(f"Database tidak ditemukan. Jalankan pipeline dulu: python pipeline/pipeline.py")
+        st.error(f"Database tidak ditemukan. Jalankan: python pipeline/pipeline.py")
         st.stop()
 
     try:
@@ -250,24 +341,21 @@ def main():
         st.stop()
 
     kpi_cards(orders)
+    st.markdown("")
 
-    st.markdown("---")
+    col_a, col_b = st.columns(2)
+    with col_a: revenue_by_outlet(orders)
+    with col_b: top_menu(orders)
 
-    col_left, col_right = st.columns(2)
-    with col_left:
-        revenue_by_outlet(orders)
-    with col_right:
-        top_menu(orders)
-
-    col_pay, col_shift = st.columns(2)
-    with col_pay:
-        payment_mix(orders)
-    with col_shift:
-        shift_performance(orders)
+    col_c, col_d = st.columns(2)
+    with col_c: payment_mix(orders)
+    with col_d: shift_performance(orders)
 
     daily_trend(orders)
-    category_performance(orders, menu)
-    cleansing_info()
+
+    col_e, col_f = st.columns(2)
+    with col_e: category_performance(orders, menu)
+    with col_f: cleansing_info()
 
 
 if __name__ == "__main__":
