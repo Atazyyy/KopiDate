@@ -1,0 +1,16 @@
+menu_item,category,base_price_idr,sizes_available
+Es Kopi Susu,Signature,18000,"R,L"
+Kopi Tubruk,Classic,12000,"R,L"
+Kopi Sanger,Classic,15000,"R,L"
+Kopi Hitam,Classic,10000,"R,L"
+Americano,Espresso,20000,"R,L,XL"
+Cappuccino,Espresso,22000,"R,L,XL"
+Cafe Latte,Espresso,22000,"R,L,XL"
+Cafe Mocha,Espresso,25000,"R,L"
+Cold Brew,Specialty,28000,"R,L"
+Kopi Luwak,Premium,35000,R
+Kopi Ginseng,Signature,18000,"R,L"
+Kopi Tarik,Signature,16000,"R,L"
+Vietnamese Coffee,Specialty,24000,"R,L"
+Affogato,Dessert,30000,R
+Tubruk Jahe,Classic,14000,"R,L"

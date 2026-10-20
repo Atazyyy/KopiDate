@@ -1,0 +1,183 @@
+order_id,order_date,outlet,menu_item,size,qty,price_idr,payment_method,shift,cashier
+J-0001,2024-01-21, Dago,Kopi Tarik,L,1,20800,Dana,Pagi,Dedi
+J-0002,2024-01-23,Dago,Cold Brew,l,1,34400,ShopeePay,Siang,Budi
+J-0003,12.01.24,Buah Batu,Kopi Luwak,R,3,35000,OVO,Malam,Agus
+J-0004,23/01/2024,Setiabudi,Kopi Ginseng,R,2,18000,OVO,Pagi,Budi
+J-0005,23.01.24,Buah Batu,Kopi Ginseng,R,2,18000,OVO,Malam,Maya
+J-0006,25 Jan 2024,Buah Batu,Affogato,Reg,3,30000,Dana,Pagi,Maya
+J-0007,08 Jan 2024,Dago,Cold Brew,L,2,36400,Qris,Siang,Andi
+J-0008,13 Jan 2024,Buah Batu,Cafe Mocha,l,3,32500,ShopeePay,Siang,Budi
+J-0009,31/01/2024,Buah Batu,Kopi Tarik,L,3,20800,ShopeePay,Siang,Budi
+J-0010,2024-01-25,Dago,Tubruk Jahe,R,1,14000,Debit,Malam,Rina
+J-0011,27/01/2024,Buah Batu,Vietnamese Coffee,R,1,24000,Debit,Pagi,Maya
+J-0012,2024-01-13,Buah Batu,Kopi Ginseng,l,1,23400,,Malam,Andi
+J-0013,08 Jan 2024,Buah Batu,Es Kopi Susu,L,1,23400,QRIS,Pagi,Agus
+J-0014,2024-01-07,Buah Batu,Kopi Ginseng,L,1,23400,Shopeepay,Pagi,Agus
+J-0015,2024-01-07,Dago,Kopi Sanger,L,1,19500,Debit,Siang,Dedi
+J-0016,30 Jan 2024,Setiabudi,Kopi Hitam,R,1,10000,QRIS,Malam,Agus
+J-0017,23/01/2024,Dago,Vietnamese Coffee,l,1,31200,Dana,Malam,Dedi
+J-0018,28.01.24,Setiabudi,Kopi Luwak,R,2,35000,Qris,Pagi,Dedi
+J-0019,07.01.24,Dago,Cappuccino,REGULAR,1,22000,debit,Siang,Dedi
+J-0020,29.01.24,Buah Batu,Kopi Hitam,l,1,13000,DEBIT,Pagi,Andi
+J-0021,24.01.24,DAGO,Americano,LARGE,2,26000,GoPay,Siang,Agus
+J-0022,25 Jan 2024,Setiabudi,Americano,REGULAR,2,18000,ShopeePay,Pagi,Andi
+J-0023,12/01/2024,Buah Batu,Vietnamese Coffee,R,3,24000,Debit,Malam,Andi
+J-0024,2024-01-26,Setiabudi,Cafe Latte,R,1,22000,ShopeePay,Pagi,Maya
+J-0025,2024-01-02,Setiabudi,Kopi Hitam,R,3,10000,QRIS,Malam,Agus
+J-0026,09.01.24,SETIABUDI,Cold Brew,L,2,36400,GoPay,Pagi,Budi
+J-0027,17 Jan 2024,Buah Batu,Tubruk Jahe,REGULAR,0,14000,Dana,Pagi,Budi
+J-0028,20/01/2024,Dago,Affogato,R,2,30000,OVO,Pagi,Sari
+J-0029,10/01/2024,Dago,Affogato,R,1,30000,GoPay,Siang,Agus
+J-0030,2024-01-10,Setiabudi,Kopi Ginseng,L,1,23400,debit,Siang,Agus
+J-0031,2024-01-29,Dago,Kopi Hitam,L,1,11000,DEBIT,Siang,Agus
+J-0032,26 Jan 2024,Setiabudi,Cold Brew,L,3,36400,Dana,Siang,Maya
+J-0033,2024-01-25,Setiabudi,Kopi Ginseng,Large,2,23400,Cash,Pagi,Dedi
+J-0034,13 Jan 2024,Buah Batu,Kopi Tarik,R,1,16000,QRIS,Siang,Rina
+J-0035,31 Jan 2024,Setiabudi,Vietnamese Coffee,LARGE,3,31200,Dana,Pagi,Sari
+J-0036,22 Jan 2024,BUAH BATU,Cafe Latte,X-Large,1,35200,Cash,Siang,Andi
+J-0037,13/01/2024,Buah Batu,Cafe Mocha,L,1,32500,ovo,Pagi,Budi
+J-0038,25.01.24,Setiabudi,Es Kopi Susu, reguler,3,18000,QRIS ,Malam,Agus
+J-0039,31/01/2024,Buah Batu,Kopi Tubruk,REGULAR,3,12000,ShopeePay,Siang,Dedi
+J-0040,28 Jan 2024,SETIABUDI,Vietnamese Coffee,REGULAR,2,24000,ShopeePay,Siang,Agus
+J-0041,21.01.24,Setiabudi,Cafe Mocha,R,1,25000,Debit,Malam,Maya
+J-0042,08.01.24,Setiabudi,Kopi Tubruk,L,3,15600,OVO,Malam,Andi
+J-0043,11 Jan 2024,Buah Batu,Kopi Luwak,R,1,35000,OVO,Pagi,Maya
+J-0044,01 Jan 2024,Buah Batu,Kopi Hitam,L,2,13000,Dana,Pagi,Maya
+J-0045,09.01.24,Buah Batu,Kopi Tarik,R,1,16000,QRIS,Pagi,Agus
+J-0046,27 Jan 2024,Dago,Kopi Hitam,l,1,13000,Cash,Pagi,Agus
+J-0047,2024-01-19,Dago,Cafe Mocha,LARGE,1,32500,Cash,Pagi,Maya
+J-0048,2024-01-03,Buah Batu,Kopi Tubruk,L,2,15600,OVO,Malam,Budi
+J-0049,2024-01-24,Buah Batu,Vietnamese Coffee,R,2,24000,dana,Pagi,Budi
+J-0050,23/01/2024,Setiabudi,Affogato,R,1,30000,Dana,Pagi,Andi
+J-0051,27 Jan 2024,Buah Batu,Es Kopi Susu,R,2,18000,OVO,Pagi,Budi
+J-0052,20.01.24,Dago,Cafe Latte,XL,1,35200,Debit,Pagi,Maya
+J-0053,2024-01-25,Setiabudi,Cafe Mocha,L,3,32500,OVO,Malam,Maya
+J-0054,2024-01-11,Setiabudi,Cafe Mocha,L,2,32500,Cash,Siang,Agus
+J-0055,18 Jan 2024,Setiabudi,Es Kopi Susu, reguler,1,18000,Cash,Siang,Maya
+J-0056,26.01.24,Setiabudi,Kopi Sanger,L,1,19500,cash,Pagi,Budi
+J-0057,16.01.24,Setiabudi,Kopi Hitam,L,1,13000,QRIS,Malam,Agus
+J-0058,10/01/2024,Setiabudi,Affogato,R,3,30000,Debit,Siang,Maya
+J-0059,08/01/2024,Dago,Cafe Latte,R,1,22000,ShopeePay,Malam,Rina
+J-0060,19 Jan 2024,Setiabudi,Kopi Tubruk,L,1,15600,DEBIT,Pagi,Maya
+J-0061,28.01.24,Dago,Kopi Ginseng,L,3,23400,,Pagi,Maya
+J-0062,24 Jan 2024,Setiabudi,Kopi Tubruk,R,1,12000,Debit,Pagi,Dedi
+J-0063,2024-01-26,Setiabudi,Kopi Sanger,R,2,15000,Dana,Pagi,Maya
+J-0064,15 Jan 2024,Setiabudi,Kopi Ginseng,Reguler,1,18000,OVO,Malam,Sari
+J-0065,19 Jan 2024,Dago,Americano,XL,1,32000,Dana,Pagi,Maya
+J-0066,2024-01-29,Buah Batu,Vietnamese Coffee,R,2,24000,ShopeePay,Pagi,Maya
+J-0067,21.01.24,Buah Batu,Vietnamese Coffee,L,1,31200,GOPAY,Pagi,Budi
+J-0068,09.01.24,Buah Batu,Cafe Mocha,besar,2,32500,QRIS,Malam,Sari
+J-0069,01/01/2024,setiabudi,Kopi Tubruk,L,1,15600,ShopeePay ,Pagi,Dedi
+J-0070,21.01.24,Buah Batu,Tubruk Jahe,L,2,18200,OVO,Malam,Sari
+J-0071,24 Jan 2024,setiabudi,Cold Brew,L,1,36400,Debit,Siang,Andi
+J-0072,2024-01-08, Setiabudi,Kopi Tubruk,LARGE,1,15600,QRIS,Malam,Maya
+J-0073,08.01.24, Buah Batu,Vietnamese Coffee,R,1,24000,Debit,Malam,Andi
+J-0074,04 Jan 2024,Buah Batu,Es Kopi Susu,R,1,18000,QRIS,Siang,Rina
+J-0075,12 Jan 2024,Buah Batu,Kopi Tubruk,L,1,15600,Debit,Siang,Rina
+J-0076,14.01.24,Buah Batu,Cafe Mocha,L,1,32500,GoPay,Siang,Dedi
+J-0077,20 Jan 2024,Setiabudi,Vietnamese Coffee,R,3,24000,QRIS,Siang,Sari
+J-0078,04/01/2024,Buah Batu,Cappuccino,XL,1,35200,cash,Pagi,Agus
+J-0079,2024-01-19,Setiabudi,Cold Brew,L,2,36400,OVO,Malam,Budi
+J-0080,2024-01-07,Buah Batu,Cafe Mocha,R,3,25000,GoPay,Pagi,Agus
+J-0081,2024-01-22,Dago,Americano, reguler,1,20000,CASH ,Malam,Maya
+J-0082,07 Jan 2024,Buah Batu ,Cafe Mocha,L,1,32500,DANA,Siang,Budi
+J-0083,16 Jan 2024,Buah Batu,Cafe Latte,L,1,28600,ShopeePay,Siang,Andi
+J-0084,02.01.24,Buah Batu,Americano,r,2,20000,OFO,Pagi,Dedi
+J-0085,14 Jan 2024,Setiabudi,Tubruk Jahe,R,3,14000,OVO,Pagi,Dedi
+J-0086,30/01/2024,Dago ,Cafe Latte,R,1,22000,GoPay,Pagi,Dedi
+J-0087,12 Jan 2024,Setiabudi,Affogato,R,1,30000,DEBIT,Pagi,Agus
+J-0088,29 Jan 2024,Buah Batu ,Kopi Ginseng,L,3,23400,OVO,Siang,Budi
+J-0089,02/01/2024,Buah Batu,Americano,R,2,20000,OVO,Pagi,Sari
+J-0090,16/01/2024,Setiabudi,Es Kopi Susu,L,1,23400,dana,Siang,Dedi
+J-0091,30/01/2024,Setiabudi,Cafe Latte,L,2,28600,GoPay,Pagi,Agus
+J-0092,19/01/2024,Setiabudi,Tubruk Jahe,L,1,18200,ShopeePay,Siang,Budi
+J-0093,27/01/2024,Setiabudi,Kopi Ginseng,r,2,18000,QRIS,Malam,Andi
+J-0094,17 Jan 2024,Buah Batu,Affogato,REGULAR,2,30000,QRIS,Malam,Andi
+J-0095,22 Jan 2024,Dago,Cafe Mocha,L,2,32500,Debit,Siang,Dedi
+J-0096,2024-01-10,Setiabudi,Cold Brew,L,3,36400,GoPay,Malam,Rina
+J-0097,25 Jan 2024,Setiabudi,Cafe Mocha,R,3,25000,GoPay,Pagi,Andi
+J-0098,12 Jan 2024,Dago,Cappuccino,R,3,22000,GoPay,Pagi,Sari
+J-0099,29 Jan 2024,DAGO,Americano,Reguler,3,20000,Cash,Pagi,Maya
+J-0100,2024-01-20,Dago,Kopi Ginseng,R,0,18000,Dana,Siang,Budi
+J-0101,2024-01-18,Dago,Cold Brew,R,1,28000,GoPay,Siang,Maya
+J-0102,2024-01-24,Buah Batu,Kopi Sanger,R,1,15000,ShopeePay,Malam,Andi
+J-0103,31/01/2024,Setiabudi,Americano,R,1,20000,Dana,Siang,Agus
+J-0104,28.01.24,Dago,Affogato,R,1,30000,OVO,Malam,Sari
+J-0105,17 Jan 2024,Setiabudi,Kopi Tubruk,besar,1,15600,GoPay,Pagi,Dedi
+J-0106,12/01/2024,Setiabudi,Kopi Tarik,L,2,20800,Cash,Siang,Maya
+J-0107,05.01.24,Buah Batu,Kopi Ginseng,L,1,23400,ovo,Malam,Budi
+J-0108,03.01.24,Buah Batu,Cold Brew,L,1,36400,ShopeePay,Siang,Agus
+J-0109,07.01.24,Dago,Americano,XL,3,32000,OVO,Malam,Agus
+J-0110,23/01/2024,Dago,Cold Brew,L,3,36400,ShopeePay,Pagi,Andi
+J-0111,16 Jan 2024,Buah Batu,Cold Brew,L,1,36400,Cash,Pagi,Sari
+J-0112,03 Jan 2024,Dago,Cappuccino,XL,1,35200,Debit,Pagi,Andi
+J-0113,28.01.24,Setiabudi,Kopi Tubruk,REGULAR,1,12000,Dana,Pagi,Dedi
+J-0114,2024-01-20,Dago,Cold Brew, reguler,1,28000,Dana,Siang,Rina
+J-0115,2024-01-09,Buah Batu,Vietnamese Coffee,L,2,31200,ShopeePay,Siang,Sari
+J-0116,2024-01-06,Setiabudi,Cafe Mocha,L,1,32500,ShopeePay,Siang,Budi
+J-0117,15.01.24,Dago,Cafe Mocha,Reg,1,25000,OVO,Pagi,Dedi
+J-0118,16 Jan 2024,setiabudi,Cafe Mocha,L,3,32500,OVO,Malam,Sari
+J-0119,01 Jan 2024,Setiabudi,Cafe Latte,R,3,22000,OVO,Malam,Rina
+J-0120,2024-01-25,Dago,Affogato,Reg,1,30000,Dana,Siang,Sari
+J-0121,23.01.24,Buah Batu,Cafe Mocha,L,1,32500,GoPay,Pagi,Dedi
+J-0122,2024-01-17,Buah Batu,Kopi Tarik,L,1,20800,OVO,Siang,Maya
+J-0123,2024-01-09,Buah Batu,Vietnamese Coffee,Reguler,2,24000,Dana,Malam,Dedi
+J-0124,11 Jan 2024,Buah Batu,Cafe Latte,XL,1,35200,debit,Siang,Budi
+J-0125,11.01.24,Dago,Cafe Mocha,L,1,32500,Debit,Malam,Budi
+J-0126,10 Jan 2024,Buah Batu,Kopi Tarik,R,2,16000,Debit,Malam,Sari
+J-0127,31.01.24,Dago,Kopi Sanger,Large,1,19500,ShopeePay,Malam,Budi
+J-0128,08 Jan 2024,Setiabudi,Tubruk Jahe,R,2,14000,cash,Pagi,Sari
+J-0129,25 Jan 2024,Dago,Cappuccino,L,2,28600,Dana,Malam,Andi
+J-0130,06 Jan 2024,Setiabudi,Es Kopi Susu,L,2,23400,gopay,Malam,Maya
+J-0131,05/01/2024,Setiabudi,Cafe Mocha,besar,1,32500,GoPay ,Malam,Agus
+J-0132,27.01.24,Setiabudi,Cappuccino,R,1,22000,,Siang,Agus
+J-0133,10.01.24,Buah Batu,Kopi Luwak,R,1,35000,OVO,Siang,Maya
+J-0134,21/01/2024,Buah Batu,Americano,L,2,26000,ShopeePay,Malam,Sari
+J-0135,22/01/2024,Buah Batu,Affogato, reguler,1,30000,Cash,Malam,Dedi
+J-0136,15.01.24,Buah Batu,Kopi Hitam,L,1,13000,Dana,Pagi,Agus
+J-0137,13/01/2024,Dago,Es Kopi Susu,R,1,18000,CASH ,Pagi,Andi
+J-0138,24.01.24,Buah Batu,Cafe Latte,besar,3,28600,OVO,Siang,Agus
+J-0139,17.01.24,Dago,Kopi Hitam,r,2,10000,OVO,Pagi,Andi
+J-0140,02/01/2024,Buah Batu,Cafe Latte,XL,2,35200,Cash,Malam,Rina
+J-0141,13.01.24,Setiabudi,Cold Brew,R,2,28000,QRIS,Siang,Agus
+J-0142,29.01.24,Setiabudi,Kopi Ginseng,R,1,18000,ShopeePay,Pagi,Rina
+J-0143,22 Jan 2024,Setiabudi,Cold Brew,L,2,36400,Dana,Siang,Andi
+J-0144,18/01/2024,Dago,Cafe Latte,X-Large,1,35200,Cash,Siang,Agus
+J-0145,22/01/2024,Setiabudi,Es Kopi Susu,R,1,18000,OVO,Siang,Rina
+J-0146,31.01.24,Setiabudi,Kopi Tarik,L,3,20800,QRIS,Siang,Maya
+J-0147,12/01/2024,Buah Batu,Cafe Mocha,besar,1,32500,QRIS,Siang,Maya
+J-0148,10 Jan 2024,Setiabudi,Cappuccino,R,1,22000,ShopeePay,Pagi,Maya
+J-0149,2024-01-24,Dago,Kopi Sanger,R,2,15000,ShopeePay,Malam,Maya
+J-0150,14 Jan 2024,Buah Batu,Kopi Ginseng, reguler,1,18000,Cash,Pagi,Maya
+J-0151,18/01/2024,Dago,Es Kopi Susu,L,1,23400,OVO,Siang,Dedi
+J-0152,2024-01-20,Setiabudi,Affogato,R,1,30000,Dana,Siang,Agus
+J-0153,2024-01-28,Setiabudi,Es Kopi Susu,R,1,18000,ShopeePay,Siang,Budi
+J-0154,30/01/2024,Dago,Kopi Hitam,L,1,13000,dana,Pagi,Dedi
+J-0155,2024-01-23,Buah Batu,Tubruk Jahe,R,1,14000,ShopeePay,Malam,Maya
+J-0156,12 Jan 2024,Buah Batu,Cafe Latte,R,3,22000,OVO,Pagi,Sari
+J-0157,18/01/2024,Dago,Cafe Latte,R,2,22000,DEBIT,Malam,Agus
+J-0158,2024-01-11,Buah Batu,Kopi Tubruk, reguler,3,12000,Cash,Pagi,Rina
+J-0159,03 Jan 2024,Dago,Vietnamese Coffee,LARGE,3,31200,ShopeePay,Siang,Andi
+J-0160,10/01/2024,Buah Batu,Kopi Sanger,R,1,15000,GoPay,Pagi,Dedi
+J-0161,05/01/2024,Buah Batu,Cafe Latte,L,3,28600,OVO,Pagi,Budi
+J-0162,06/01/2024,Setiabudi,Cappuccino,L,2,28600,GoPay,Malam,Dedi
+J-0163,18.01.24,Buah Batu,Vietnamese Coffee,R,3,24000,Gopay,Pagi,Maya
+J-0164,22.01.24,Setiabudi,Cafe Latte,L,1,28600,Dana,Pagi,Agus
+J-0165,26.01.24,Buah Batu,Kopi Ginseng,R,1,18000,Dana,Siang,Agus
+J-0166,14/01/2024,Buah Batu,Kopi Tubruk,L,1,15600,QRIS,Pagi,Dedi
+J-0167,01 Jan 2024,Dago,Americano,besar,3,26000,GoPay,Siang,Budi
+J-0168,11/01/2024,Setiabudi,Es Kopi Susu,R,1,18000,ShopeePay ,Pagi,Sari
+J-0169,2024-01-21,Dago,Kopi Ginseng,L,1,23400,OVO,Pagi,Maya
+J-0170,2024-01-26,Setiabudi,Kopi Sanger,L,1,19500,Dana,Malam,Dedi
+J-0171,28 Jan 2024,Buah Batu,Kopi Sanger,L,3,19500,QRIS,Siang,Sari
+J-0172,2024-01-19,Dago,Kopi Sanger,L,2,19500,Dana,Siang,Sari
+J-0173,2024-01-31,Setiabudi,Kopi Sanger,R,3,15000,ShopeePay,Pagi,Rina
+J-0174,08.01.24,Buah Batu,Americano,R,1,20000,Debit,Pagi,Agus
+J-0175,2024-01-25,Dago,Kopi Tarik,L,1,20800,Debit,Pagi,Budi
+J-0176,2024-01-04,Dago,Kopi Hitam,R,3,10000,ShopeePay,Malam,Agus
+J-0177,18 Jan 2024,Dago,Cold Brew,R,1,28000,Debit,Pagi,Agus
+J-0178,2024-01-09,Buah Batu,Kopi Sanger,R,1,15000,Shopeepay,Malam,Sari
+J-0179,29.01.24,Dago,Cafe Latte,XL,2,35200,OVO ,Malam,Sari
+J-0180,2024-01-26,Setiabudi,Kopi Hitam,besar,3,13000,Dana,Siang,Maya
+J-0005,23.01.24,Buah Batu,Kopi Ginseng,R,2,18000,OVO,Malam,Maya
+J-0032,26 Jan 2024,Setiabudi,Cold Brew,L,3,36400,Dana,Siang,Maya

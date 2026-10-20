@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Pipeline outputs (regeneratable)
+pipeline/KopiDate.duckdb
+pipeline/KopiDate.duckdb.wal
+data/cleaned/
+data/raw_backup/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Env / secrets
+.env
+*.local
